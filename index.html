@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redneval Studios</title>
+  <meta name="description" content="Redneval Studios is an independent game studio. First project in development.">
+  <meta property="og:title" content="Redneval Studios">
+  <meta property="og:description" content="An independent game studio. First project in development.">
+  <meta property="og:url" content="https://rednevalstudios.com">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0b0a0d">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0a0d'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' text-anchor='middle' fill='%23b8a6d9'%3ER%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0a0d;
+      --text: #e9e6ee;
+      --muted: #8d8796;
+      --accent: #b8a6d9;
+      --line: rgba(233, 230, 238, 0.12);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* slow drifting haze */
+    .haze {
+      position: fixed;
+      inset: -20%;
+      background:
+        radial-gradient(40% 30% at 30% 40%, rgba(184, 166, 217, 0.10), transparent 70%),
+        radial-gradient(35% 25% at 70% 65%, rgba(120, 100, 160, 0.08), transparent 70%);
+      filter: blur(40px);
+      animation: drift 28s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes drift {
+      from { transform: translate3d(-3%, -2%, 0) scale(1); }
+      to   { transform: translate3d(3%, 2%, 0) scale(1.08); }
+    }
+    /* film grain */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.07;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    main {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: rise 1.4s ease-out 0.2s forwards;
+    }
+    h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(3rem, 11vw, 7.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      opacity: 0;
+      animation: rise 1.8s ease-out 0.4s forwards;
+    }
+    h1 span {
+      display: block;
+      font-size: 0.38em;
+      font-weight: 500;
+      letter-spacing: 0.5em;
+      margin-top: 0.6em;
+      padding-left: 0.5em; /* balance trailing letter-spacing */
+      color: var(--accent);
+    }
+    .rule {
+      width: 48px;
+      height: 1px;
+      background: var(--line);
+      margin: 2.75rem auto;
+      opacity: 0;
+      animation: rise 1.4s ease-out 0.9s forwards;
+    }
+    .status {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 28rem;
+      opacity: 0;
+      animation: rise 1.4s ease-out 1.1s forwards;
+    }
+    .status strong { color: var(--text); font-weight: 500; }
+    .contact {
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: rise 1.4s ease-out 1.3s forwards;
+    }
+    .contact a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.25rem;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .contact a:hover, .contact a:focus-visible {
+      color: var(--accent);
+      border-color: var(--accent);
+      outline: none;
+    }
+    .social {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem 1.75rem;
+      margin-top: 2.25rem;
+      opacity: 0;
+      animation: rise 1.4s ease-out 1.5s forwards;
+    }
+    .social a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .social a:hover, .social a:focus-visible {
+      color: var(--accent);
+      outline: none;
+    }
+    footer {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .haze { animation: none; }
+      .eyebrow, h1, .rule, .status, .contact, .social { animation: none; opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="haze" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <main>
+    <p class="eyebrow">Independent game studio</p>
+    <h1>Redneval<span>STUDIOS</span></h1>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="status">Our first game is <strong>in development</strong>.<br>More soon.</p>
+    <p class="contact"><a href="mailto:rednevalstudios@gmail.com">rednevalstudios@gmail.com</a></p>
+    <ul class="social" aria-label="Redneval Studios on social media">
+      <li><a href="https://www.youtube.com/@rednevalstudios" target="_blank" rel="noopener">YouTube</a></li>
+      <li><a href="https://x.com/rednevalstudios" target="_blank" rel="noopener">X</a></li>
+      <li><a href="https://www.instagram.com/rednevalstudios" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="https://www.tiktok.com/@rednevalstudios" target="_blank" rel="noopener">TikTok</a></li>
+      <li><a href="https://www.reddit.com/user/rednevalstudios" target="_blank" rel="noopener">Reddit</a></li>
+      <li><a href="https://bsky.app/profile/rednevalstudios.com" target="_blank" rel="noopener">Bluesky</a></li>
+    </ul>
+  </main>
+
+  <footer>&copy; 2026 Redneval Studios</footer>
+</body>
+</html>
